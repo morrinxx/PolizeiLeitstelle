@@ -1,10 +1,22 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="toolbarRed">
   <mat-toolbar-row>
-    <span>POLIZEILEITSTELLE</span>
     <span></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-toolbar class="toolbar">
+  <mat-toolbar-row>
+    <span class="span">POLIZEILEITSTELLE</span>
 
     <button mat-button class="mapButton">
       <mat-icon aria-hidden="false">map</mat-icon>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
+
+<script
+  async
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJtBI0SFaIruLAVxptrQlfl_YPWnUxMUg&callback=initMap"
+  type="text/javascript"
+></script>
+<div #mapContainer id="map"></div>
