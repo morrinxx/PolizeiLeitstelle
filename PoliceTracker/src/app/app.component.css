@@ -1,3 +1,25 @@
+.toolbar {
+  background-color: darkblue;
+}
+
+.toolbarRed {
+  background-color: red;
+  min-height: 15px;
+  max-height: 15px;
+}
+
+.span {
+  margin: auto;
+  color: whitesmoke;
+  font-size: xx-large;
+  font: bold;
+}
+
 .mapButton {
-  margin-left: 1440px;
+  color: whitesmoke;
+}
+
+#map {
+  height: 500px;
+  width: 100%;
 }
