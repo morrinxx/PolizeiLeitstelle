@@ -394,5 +394,26 @@
    }
   }
  },
- "_credentialSecret": "4e8aee14516ab199871a0ad87ef6c3f1535ccfab48609824f8cac1b6ff88b6d8"
+ "_credentialSecret": "4e8aee14516ab199871a0ad87ef6c3f1535ccfab48609824f8cac1b6ff88b6d8",
+ "users": {
+  "_": {
+   "editor": {
+    "view": {
+     "view-show-grid": true,
+     "view-snap-grid": true,
+     "view-grid-size": "20",
+     "view-node-status": true,
+     "view-node-show-label": true,
+     "view-show-tips": false
+    },
+    "keymap": {
+     "core:disable-flow": {
+      "scope": "*",
+      "key": "ctrl-s",
+      "user": true
+     }
+    }
+   }
+  }
+ }
 }
