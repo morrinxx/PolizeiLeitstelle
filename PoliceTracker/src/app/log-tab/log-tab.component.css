@@ -1,0 +1,11 @@
+.cardDesign {
+  height: 12%;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.titleDesign {
+  background-color: skyblue;
+  font-size: x-large;
+  font-weight: 500;
+}

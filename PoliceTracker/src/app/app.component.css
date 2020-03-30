@@ -4,8 +4,8 @@
 
 .toolbarRed {
   background-color: red;
-  min-height: 15px;
-  max-height: 15px;
+  min-height: 13px;
+  max-height: 13px;
 }
 
 .span {
@@ -18,8 +18,10 @@
 .mapButton {
   color: whitesmoke;
 }
+.tabDesign {
+  width: 33.33%;
+}
 
-#map {
-  height: 500px;
-  width: 100%;
+.outletDesign {
+  background-color: red;
 }
