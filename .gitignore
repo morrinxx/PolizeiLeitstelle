@@ -159,4 +159,8 @@ jspm_packages/
 # Temporary folders
 temp/
 
+### LibreOffice ###
+# LibreOffice locks
+.~lock.*#
+
 # End of https://www.gitignore.io/api/node,java,angular
