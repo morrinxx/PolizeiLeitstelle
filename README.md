@@ -48,4 +48,4 @@ WL (Wels-Land)
 {"id": "value", "description": "value"}
 
 * Status  
-{"id": "value"}
+{"id": "value", "description": "value"}
