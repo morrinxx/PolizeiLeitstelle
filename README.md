@@ -42,3 +42,10 @@ UU (Urfahr-Umgebung)
 VB (Vöcklabruck)  
 WE (Wels)  
 WL (Wels-Land)
+
+#### JSON format
+* Einsatz  
+{"id": "value", "description": "value"}
+
+* Status  
+{"id": "value"}
