@@ -10,6 +10,12 @@ import { NewestTabComponent } from "./newest-tab/newest-tab.component";
 import { LogTabComponent } from "./log-tab/log-tab.component";
 import { NewOperationTabComponent } from "./new-operation-tab/new-operation-tab.component";
 import { Report } from "./report";
+import { MqttModule, IMqttServiceOptions } from "ngx-mqtt";
+export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: "broker.hivemq.com",
+  port: 8000,
+  path: "/mqtt"
+};
 
 @NgModule({
   declarations: [
@@ -22,7 +28,8 @@ import { Report } from "./report";
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
   ],
   providers: [],
   bootstrap: [AppComponent]

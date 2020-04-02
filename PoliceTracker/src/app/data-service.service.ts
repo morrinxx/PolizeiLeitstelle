@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { Report } from "./report";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
-export class DataServiceService {
-
-  constructor() { }
+export class DataService {
+  public Reports: Array<Report> = [];
 }

@@ -8,9 +8,9 @@ import { Report } from "../report";
 })
 export class LogTabComponent implements OnInit {
   reports: Array<Report> = [
-    new Report(1, "Banküberfall", "BR", "Braunau1", "Status"),
-    new Report(2, "Stecherei", "L", "Linz1", "Status"),
-    new Report(3, "Autounfall", "LL", "LinzLand1", "Status")
+    new Report(1, "Banküberfall", "BR", "Braunau1", "Einsatz"),
+    new Report(2, "Stecherei", "L", "Linz1", "Einsatz"),
+    new Report(3, "Autounfall", "LL", "LinzLand1", "Einsatz")
   ];
 
   constructor() {}
