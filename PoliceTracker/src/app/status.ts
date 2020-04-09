@@ -1,7 +1,7 @@
-export class Report {
+export class Status {
   constructor(
-    public id: Number,
-    public description: string,
+    public id: String,
+    public einsatzName: String,
     public district: string,
     public carId: string,
     public type: string

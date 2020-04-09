@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Observable, Observer, Subscription } from "rxjs";
 import { RouterLink, Router } from "@angular/router";
 import { IMqttMessage, MqttService } from "ngx-mqtt";
-import { Report } from "./report";
+import { Status } from "./status";
 import { DataService } from "./data-service.service";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
@@ -24,18 +24,18 @@ export class AppComponent implements OnInit, OnDestroy {
       {
         label: "Neue",
         link: "./newTab",
-        index: 0
+        index: 0,
       },
       {
         label: "Log",
         link: "./logTab",
-        index: 1
+        index: 1,
       },
       {
         label: "Neuer Einsatz",
         link: "./newOperationTab",
-        index: 2
-      }
+        index: 2,
+      },
     ];
   }
   ngOnInit(): void {
@@ -49,21 +49,47 @@ export class AppComponent implements OnInit, OnDestroy {
   subscribeToTopic(): void {
     console.log("inside subscribe new topic");
     this.subscription = this._mqttService
-      .observe("Leitstelle/#")
+      .observe("Leitstelle/+/+/Status")
       .subscribe((message: IMqttMessage) => {
         var splitString = message.topic.toString();
         var splitArray = splitString.split("/");
-        this.msg = message.payload.toString();
-        var newReport = new Report(
-          999,
+        var type;
+        switch (message.payload.slice(7, 8).toString()) {
+          case "1":
+            type = "Einsatzbereit";
+            break;
+          case "2":
+            type = "Bedingt Einsatzbereit";
+            break;
+          case "3":
+            type = "Annehmen/Übernehmen";
+            break;
+          case "4":
+            type = "Eingetroffen";
+            break;
+          case "5":
+            type = "Sprechwunsch";
+            break;
+          case "6":
+            type = "Bereithaltezeit";
+            break;
+          case "7":
+            type = "Abmelden";
+            break;
+          case "8":
+            type = "Sprechwunsch in anderen Bundesland";
+            break;
+        }
+
+        this.msg = message.payload.slice(25).toString().split('"}')[0];
+        var newReport = new Status(
+          type,
           this.msg,
           splitArray[1],
           splitArray[2],
           splitArray[3]
         );
-        if (newReport.type == "Status") {
-          this.dataservice.Reports.push(newReport);
-        }
+        this.dataservice.Reports.push(newReport);
         console.log("Report: ", newReport);
       });
   }

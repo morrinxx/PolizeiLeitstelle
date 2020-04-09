@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Report } from "./report";
+import { Status } from "./status";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class DataService {
-  public Reports: Array<Report> = [];
+  public Reports: Array<Status> = [];
+  public currentOperation: String = "";
 }
