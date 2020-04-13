@@ -7,7 +7,7 @@ Wenn das Auto den Status wieder auf 1 (Einsatzbereit stellt), ist demzufolge der
 
 ### MQTT Hierarchy
 * Leitstelle
-  * Bezirk
+  * \<Bezirk\>
     * \<AutoID\>
       * Einsatz
       * Status
@@ -48,4 +48,4 @@ WL (Wels-Land)
 {"id": "value", "description": "value"}
 
 * Status  
-{"id": "value"}
+{"id": "value", "description": "value"}

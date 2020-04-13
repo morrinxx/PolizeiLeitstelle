@@ -1,0 +1,25 @@
+<mat-card
+  *ngFor="let report of reports"
+  class="cardDesign"
+  [class.mat-elevation-z2]="true"
+>
+  <div>
+    <mat-card-header class="titleDesign">
+      {{ report.einsatzName }}
+    </mat-card-header>
+    <mat-card-content class="contentDesign">
+      Zugewissenes Auto: {{ report.carId }} <br />
+      Bezirk: {{ report.district }}
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="primary"
+        class="buttonDesign"
+        (click)="clickedReportsButton(report.einsatzName)"
+      >
+        Statusmeldungen
+      </button>
+    </mat-card-actions>
+  </div>
+</mat-card>

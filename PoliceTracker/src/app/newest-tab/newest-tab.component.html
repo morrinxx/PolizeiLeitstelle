@@ -1,0 +1,17 @@
+<mat-card
+  *ngFor="let report of reports"
+  class="cardDesign"
+  [class.mat-elevation-z5]="true"
+>
+  <div>
+    <mat-card-header class="titleDesign">
+      {{ report.einsatzName }}
+    </mat-card-header>
+    <mat-card-subtitle style="margin-top: 3px;">
+      {{ report.type }} : {{ report.id }}
+    </mat-card-subtitle>
+    <mat-card-content style="font-size: large;">
+      {{ report.carId }}
+    </mat-card-content>
+  </div>
+</mat-card>
