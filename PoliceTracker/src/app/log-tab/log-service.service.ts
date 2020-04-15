@@ -8,7 +8,7 @@ import { retry, catchError } from "rxjs/operators";
 })
 export class LogServiceService {
   constructor(private httpClient: HttpClient) {}
-  baseUrl = "http://localhost:9000/Leitstelle/log";
+  baseUrl = "http://localhost:8080";
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
@@ -17,14 +17,20 @@ export class LogServiceService {
 
   getOperations(): Observable<any> {
     return this.httpClient
-      .get(this.baseUrl + "/getOperations")
+      .get(this.baseUrl + "/meldung")
       .pipe(retry(1), catchError(this.handleError));
   }
 
   getReportsOfOperation(operation): Observable<any> {
     let params = new HttpParams().set("operationName", operation);
     return this.httpClient
-      .get(this.baseUrl + "/getReportsOfOperations", { params: params })
+      .get(this.baseUrl + "/status", { params: params })
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getIdForOperation(): Observable<any> {
+    return this.httpClient
+      .get(this.baseUrl + "/idealid")
       .pipe(retry(1), catchError(this.handleError));
   }
 

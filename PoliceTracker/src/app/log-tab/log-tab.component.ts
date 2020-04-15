@@ -3,6 +3,7 @@ import { Status } from "../status";
 import { LogServiceService } from "./log-service.service";
 import { DataService } from "../data-service.service";
 import { Router } from "@angular/router";
+import { Operation } from "../operation";
 
 @Component({
   selector: "app-log-tab",
@@ -10,10 +11,10 @@ import { Router } from "@angular/router";
   styleUrls: ["./log-tab.component.css"],
 })
 export class LogTabComponent implements OnInit {
-  reports: Array<Status> = [
-    new Status("1", "Banküberfall", "BR", "Braunau1", "Einsatz"),
-    new Status("2", "Stecherei", "L", "Linz1", "Einsatz"),
-    new Status("3", "Autounfall", "LL", "LinzLand1", "Einsatz"),
+  reports: Array<Operation> = [
+    new Operation(1, "Banküberfall", "Einsatz", "BR", "Braunau1", "Einsatz"),
+    new Operation(2, "Stecherei", "Einsatz", "L", "Linz1", "Einsatz"),
+    new Operation(3, "Autounfall", "Einsatz", "LL", "LinzLand1", "Einsatz"),
   ];
 
   constructor(
@@ -30,7 +31,6 @@ export class LogTabComponent implements OnInit {
   }
 
   clickedReportsButton(operation) {
-    console.log("JHI");
     this.dataService.currentOperation = operation;
     this.router.navigate(["/reportsOfOperation"]);
   }

@@ -51,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = this._mqttService
       .observe("Leitstelle/+/+/Status")
       .subscribe((message: IMqttMessage) => {
+        console.log(message.payload);
         var splitString = message.topic.toString();
         var splitArray = splitString.split("/");
         var type;

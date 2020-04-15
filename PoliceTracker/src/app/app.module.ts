@@ -4,6 +4,7 @@ import { NgModule } from "@angular/core";
 import { MaterialModule } from "./material.module";
 
 import { AppRoutingModule } from "./app-routing.module";
+import { FormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { NewestTabComponent } from "./newest-tab/newest-tab.component";
@@ -34,6 +35,7 @@ export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
     NoopAnimationsModule,
     MqttModule.forRoot(MQTT_SERVICE_OPTIONS),
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
