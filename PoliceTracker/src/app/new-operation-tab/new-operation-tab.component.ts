@@ -48,19 +48,31 @@ export class NewOperationTabComponent implements OnInit {
 
   ngOnInit() {}
 
-  createClicked() {
-    console.log(this.districtInput);
-    console.log(this.carInput);
-    console.log(this.nameInput);
-    var id = this.logService.getIdForOperation();
-    var topic =
+  id = "";
+
+  async delay(ms:number){
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => {
+      var topic =
       "Leitstelle/" + this.districtInput + "/" + this.carInput + "/Einsatz";
     console.log(topic);
-    var msg = '{"id":"' + id + '","description":"' + this.nameInput + '"}';
+    var msg = '{"id":"' + this.id + '","description":"' + this.nameInput + '"}';
     console.log(msg);
     this._mqttService.unsafePublish(topic, msg, {
       qos: 1,
       retain: true,
     });
+    });
+  }
+
+  createClicked() {
+    console.log(this.districtInput);
+    console.log(this.carInput);
+    console.log(this.nameInput);
+
+    this.logService.getIdForOperation().subscribe(async (data:string) =>  { this.id = data, console.log("Data: " + data)});
+    console.log("id: " + this.id);
+
+    this.delay(500);
+    
   }
 }

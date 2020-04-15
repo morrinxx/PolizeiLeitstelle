@@ -24,7 +24,7 @@ export class LogServiceService {
   getReportsOfOperation(operation): Observable<any> {
     let params = new HttpParams().set("operationName", operation);
     return this.httpClient
-      .get(this.baseUrl + "/status", { params: params })
+      .get(this.baseUrl + "/statuse/" + operation)
       .pipe(retry(1), catchError(this.handleError));
   }
 
