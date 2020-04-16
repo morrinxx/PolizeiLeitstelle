@@ -1,7 +1,7 @@
 // connection.js
 const mongoose = require("mongoose");
-const Police = require("./Polizei.model");
-const connection = "mongodb://mongo:27017/mongo-police";
+const Meldung = require("./Meldung.model");
+const connection = "mongodb://mongo:27017/Leitstelle";
 const connectDb = () => {
  return mongoose.connect(connection);
 };

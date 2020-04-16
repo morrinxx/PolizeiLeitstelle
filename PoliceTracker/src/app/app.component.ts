@@ -51,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = this._mqttService
       .observe("Leitstelle/+/+/Status")
       .subscribe((message: IMqttMessage) => {
+        console.log(message.payload);
         var splitString = message.topic.toString();
         var splitArray = splitString.split("/");
         var type;
@@ -89,6 +90,18 @@ export class AppComponent implements OnInit, OnDestroy {
           splitArray[2],
           splitArray[3]
         );
+        this.dataservice.cars.forEach((car) => {
+          if (car.name == newReport.carId) {
+            if (
+              newReport.type == "Einsatzbereit" ||
+              newReport.type == "Bedingt Einsatzbereit"
+            ) {
+              car.avaible = "y";
+            } else if (newReport.type == "Annehmen/Übernehmen") {
+              car.avaible = "n";
+            }
+          }
+        });
         this.dataservice.Reports.push(newReport);
         console.log("Report: ", newReport);
       });

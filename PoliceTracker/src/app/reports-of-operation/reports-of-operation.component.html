@@ -1,5 +1,5 @@
 <mat-card
-  *ngFor="let report of reports"
+  *ngFor="let report of reports.slice().reverse()"
   class="cardDesign"
   [class.mat-elevation-z5]="true"
 >
