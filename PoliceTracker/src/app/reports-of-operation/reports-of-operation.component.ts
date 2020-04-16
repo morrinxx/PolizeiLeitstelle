@@ -22,7 +22,7 @@ export class ReportsOfOperationComponent implements OnInit {
       .subscribe((data: []) => {
         console.log(data);
         var reportsTest: Array<Status> = [];
-        data.forEach(element => {
+        data.forEach((element) => {
           console.log(Object.values(element)[1]);
           var type = "";
           switch ("" + Object.values(element)[1]) {
@@ -51,15 +51,18 @@ export class ReportsOfOperationComponent implements OnInit {
               type = "Sprechwunsch in anderen Bundesland";
               break;
           }
-          reportsTest.push(new Status( 
-          type,
-          "" + Object.values(element)[2], 
-          "" + Object.values(element)[5],
-          "" + Object.values(element)[4], 
-          "" + Object.values(element)[3]));
+          reportsTest.push(
+            new Status(
+              type,
+              "" + Object.values(element)[2],
+              "" + Object.values(element)[5],
+              "" + Object.values(element)[4],
+              "" + Object.values(element)[3]
+            )
+          );
         });
-      console.log(reportsTest)
-      this.reports = reportsTest;
+        console.log(reportsTest);
+        this.reports = reportsTest;
       });
   }
 }

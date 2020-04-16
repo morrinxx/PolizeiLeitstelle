@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MqttService } from "ngx-mqtt";
 import { LogServiceService } from "../log-tab/log-service.service";
+import { Car } from "../car";
+import { DataService } from "../data-service.service";
 
 @Component({
   selector: "app-new-operation-tab",
@@ -8,15 +10,7 @@ import { LogServiceService } from "../log-tab/log-service.service";
   styleUrls: ["./new-operation-tab.component.css"],
 })
 export class NewOperationTabComponent implements OnInit {
-  cars: Array<String> = [
-    "Eferding1",
-    "Wels1",
-    "Leonding1",
-    "Braunau1",
-    "Freistadt1",
-    "Gmunden1",
-    "Grieskirchen1",
-  ];
+  cars: Array<Car> = [];
   districts: Array<String> = [
     "BR",
     "EF",
@@ -43,24 +37,33 @@ export class NewOperationTabComponent implements OnInit {
   carInput;
   constructor(
     private _mqttService: MqttService,
-    public logService: LogServiceService
+    public logService: LogServiceService,
+    public dataService: DataService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cars = this.dataService.cars;
+  }
 
   id = "";
 
-  async delay(ms:number){
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => {
+  async delay(ms: number) {
+    await new Promise((resolve) => setTimeout(() => resolve(), ms)).then(() => {
       var topic =
-      "Leitstelle/" + this.districtInput + "/" + this.carInput + "/Einsatz";
-    console.log(topic);
-    var msg = '{"id":"' + this.id + '","description":"' + this.nameInput + '"}';
-    console.log(msg);
-    this._mqttService.unsafePublish(topic, msg, {
-      qos: 1,
-      retain: true,
-    });
+        "Leitstelle/" + this.districtInput + "/" + this.carInput + "/Einsatz";
+      console.log(topic);
+      var msg =
+        '{"id":"' + this.id + '","description":"' + this.nameInput + '"}';
+      console.log(msg);
+      this._mqttService.unsafePublish(topic, msg, {
+        qos: 1,
+        retain: true,
+      });
+      this.dataService.cars.forEach((car) => {
+        if (car.name == this.carInput) {
+          car.avaible = "n";
+        }
+      });
     });
   }
 
@@ -69,10 +72,11 @@ export class NewOperationTabComponent implements OnInit {
     console.log(this.carInput);
     console.log(this.nameInput);
 
-    this.logService.getIdForOperation().subscribe(async (data:string) =>  { this.id = data, console.log("Data: " + data)});
+    this.logService.getIdForOperation().subscribe(async (data: string) => {
+      (this.id = data), console.log("Data: " + data);
+    });
     console.log("id: " + this.id);
 
     this.delay(500);
-    
   }
 }
