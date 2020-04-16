@@ -50,4 +50,4 @@ WL (Wels-Land)
 * Status  
 {"id": "value", "description": "value"}
 
-![Image Title](SystemArchitecture.pdf){width=65%}
+<img src="SystemArchitecture.png"  width="800">
