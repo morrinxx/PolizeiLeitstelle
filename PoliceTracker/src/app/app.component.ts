@@ -4,6 +4,7 @@ import { RouterLink, Router } from "@angular/router";
 import { IMqttMessage, MqttService } from "ngx-mqtt";
 import { Status } from "./status";
 import { DataService } from "./data-service.service";
+import { NewOperationTabComponent } from './new-operation-tab/new-operation-tab.component';
 
 @Component({
   selector: "app-root",
@@ -91,17 +92,23 @@ export class AppComponent implements OnInit, OnDestroy {
           splitArray[3]
         );
         this.dataservice.cars.forEach((car) => {
+          console.log("carname: " + car.name + "newreport: " + newReport.carId)
           if (car.name == newReport.carId) {
+            console.log("carname: " + car.name)
             if (
-              newReport.type == "Einsatzbereit" ||
-              newReport.type == "Bedingt Einsatzbereit"
+              newReport.id == "Einsatzbereit" ||
+              newReport.id == "Bedingt Einsatzbereit"
             ) {
               car.avaible = "y";
-            } else if (newReport.type == "Annehmen/Übernehmen") {
+            } else if (newReport.id == "Annehmen/Übernehmen") {
               car.avaible = "n";
             }
           }
         });
+        this.router.navigateByUrl('/newOperationTab', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/newTab']);
+      });
+
         this.dataservice.Reports.push(newReport);
         console.log("Report: ", newReport);
       });

@@ -67,6 +67,10 @@ export class NewOperationTabComponent implements OnInit {
     });
   }
 
+  refresh() : void{
+    window.location.reload();
+  }
+
   createClicked() {
     console.log(this.districtInput);
     console.log(this.carInput);

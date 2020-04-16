@@ -1,7 +1,8 @@
-//Instanzen
+//Schema-Modell
 const Meldung = require("./src/Meldung.model")
 const Status = require("./src/Status.meldung")
-//server
+
+//express
 const express = require("express");
 const app = express();
 const PORT = 8080;
@@ -12,6 +13,12 @@ const connectDb = require("./src/connection");
 //MQTT
 const mqtt = require('mqtt')
 const mqttClient = mqtt.connect('mqtt://broker.hivemq.com')
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 mqttClient.on('connect', () => {
     console.log("Mqtt-Testserver") 
@@ -42,10 +49,6 @@ mqttClient.on('message', async (topic, message) => {
 
             await status.save().then(() => console.log("DB-insert mit Status"))
         }
-        
-    
-        
-
     }
 })
 
@@ -58,11 +61,13 @@ connectDb().then(() => {
 
 
 app.get("/meldung", async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     const meldungs = await Meldung.find(); 
     res.json(meldungs);
 });
 
 app.get("/statuse/:einsatzid", async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     const einsatzid = req.params.einsatzid;
     const meldung = await Meldung.findOne({ id: einsatzid })
 
@@ -75,6 +80,7 @@ app.get("/statuse/:einsatzid", async (req, res) => {
 
 
 app.get("/idealid", async (req,res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     const nextid = await (await Meldung.find()).length + 1; //Liste aller Einsätze + 1 = freie ID
 
     res.send("" + nextid);
