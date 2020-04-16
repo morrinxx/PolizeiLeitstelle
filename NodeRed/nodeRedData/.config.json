@@ -406,7 +406,18 @@
      "view-node-show-label": true,
      "view-show-tips": false
     },
-    "keymap": {}
+    "keymap": {
+     "core:disable-flow": {
+      "scope": "*",
+      "key": "D",
+      "user": true
+     },
+     "core:enable-flow": {
+      "scope": "*",
+      "key": "e",
+      "user": true
+     }
+    }
    }
   }
  }

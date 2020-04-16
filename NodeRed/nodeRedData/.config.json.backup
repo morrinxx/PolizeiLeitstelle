@@ -409,7 +409,7 @@
     "keymap": {
      "core:disable-flow": {
       "scope": "*",
-      "key": "ctrl-s",
+      "key": "D",
       "user": true
      }
     }
