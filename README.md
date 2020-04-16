@@ -48,4 +48,8 @@ WL (Wels-Land)
 {"id": "value", "description": "value"}
 
 * Status  
-{"id": "value", "description": "value"}
+{"id": "value", "description": "value"}  
+
+#### System Architecture  
+  
+<img src="SystemArchitecture.png"  width="800">
