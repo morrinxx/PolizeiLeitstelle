@@ -4,11 +4,7 @@ import { RouterLink, Router } from "@angular/router";
 import { IMqttMessage, MqttService } from "ngx-mqtt";
 import { Status } from "./status";
 import { DataService } from "./data-service.service";
-<<<<<<< Updated upstream
-import { NewOperationTabComponent } from './new-operation-tab/new-operation-tab.component';
-=======
 import { NewOperationTabComponent } from "./new-operation-tab/new-operation-tab.component";
->>>>>>> Stashed changes
 
 @Component({
   selector: "app-root",
@@ -23,8 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private _mqttService: MqttService,
-    public dataservice: DataService,
-    public newOp: NewOperationTabComponent
+    public dataservice: DataService
   ) {
     this.navLinks = [
       {
@@ -110,14 +105,10 @@ export class AppComponent implements OnInit, OnDestroy {
             }
           }
         });
-<<<<<<< Updated upstream
         this.router.navigateByUrl('/newOperationTab', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/newTab']);
       });
 
-=======
-        this.newOp.refresh();
->>>>>>> Stashed changes
         this.dataservice.Reports.push(newReport);
         console.log("Report: ", newReport);
       });

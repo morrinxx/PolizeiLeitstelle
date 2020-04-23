@@ -11,10 +11,10 @@ export class DataService {
   cars: Array<Car> = [
     new Car("Eferding1", "EF", "y"),
     new Car("Wels1", "WE", "y"),
-    new Car("Leonding1", "LL", "n"),
+    new Car("Leonding1", "LL", "y"),
     new Car("Braunau1", "BR", "y"),
     new Car("Freistadt1", "FR", "y"),
     new Car("Gmunden1", "GM", "y"),
-    new Car("Grieskirchen1", "GR", "n"),
+    new Car("Grieskirchen1", "GR", "y"),
   ];
 }
