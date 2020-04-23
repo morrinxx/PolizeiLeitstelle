@@ -45,6 +45,10 @@ export class NewOperationTabComponent implements OnInit {
     this.cars = this.dataService.cars;
   }
 
+  public refresh() {
+    window.location.reload();
+  }
+
   id = "";
 
   async delay(ms: number) {
