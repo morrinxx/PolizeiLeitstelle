@@ -5,6 +5,9 @@ Das Polizeiauto bekommt den Einsatz und kann diesen dann mit der Statusmeldung 3
 Während des Einsatzes kann das Auto weitere Statusmeldungen schicken, z.B. eingetroffen.
 Wenn das Auto den Status wieder auf 1 (Einsatzbereit stellt), ist demzufolge der Einsatz vorbei und es kann den Nächsten bearbeiten.
 
+# Erweiterung
+
+
 ### MQTT Hierarchy
 * Leitstelle
   * \<Bezirk\>
