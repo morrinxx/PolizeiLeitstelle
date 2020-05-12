@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authenicationFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="at.htlleonding.policemobileclient.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/authenicationFragment"
+        android:name="at.htlleonding.policemobileclient.AuthenicationFragment"
+        android:label="fragment_authenication"
+        tools:layout="@layout/fragment_authenication" >
+        <action
+            android:id="@+id/action_authenicationFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+</navigation>
