@@ -8,7 +8,8 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".AuthenticationFragment" >
+        tools:context=".AuthenticationFragment">
+
 
         <ImageView
             android:id="@+id/iv_autentication_logo"
@@ -17,7 +18,8 @@
             android:src="@drawable/polizeilogo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/policeLogo" />
 
         <Button
             android:id="@+id/bt_authentication_login"

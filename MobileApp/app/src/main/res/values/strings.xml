@@ -18,4 +18,5 @@
     <string name="status_6">Bereithaltezeit</string>
     <string name="status_7">abmelden</string>
     <string name="status_8">Sprechwunsch anderes BL</string>
+    <string name="policeLogo">PolizeiLogo</string>
 </resources>
