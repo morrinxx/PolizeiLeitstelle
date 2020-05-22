@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/authenicationFragment"
-        android:name="at.htlleonding.policemobileclient.AuthenicationFragment"
+        android:name="at.htlleonding.policemobileclient.AuthenticationFragment"
         android:label="fragment_authenication"
         tools:layout="@layout/fragment_authenication" >
         <action
