@@ -43,6 +43,11 @@ dependencies {
     //For FingerprintAuthentication
     def biometric_version = "1.0.1"
     implementation "androidx.biometric:biometric:$biometric_version"
+
+    //For MQTT
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
+    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
 }

@@ -22,6 +22,10 @@ class AuthenticationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val binding: FragmentAuthenicationBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_authenication, container, false
+        )
+
         val bP = BiometricPrompt(this, executor, object: BiometricPrompt.AuthenticationCallback(){
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
@@ -52,9 +56,6 @@ class AuthenticationFragment : Fragment() {
             .setNegativeButtonText(getString(R.string.cancel))
             .build()
 
-        val binding: FragmentAuthenicationBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_authenication, container, false
-        )
         binding.btAuthenticationLogin.setOnClickListener { bP.authenticate(promptInfo) }
         return binding.root
     }
