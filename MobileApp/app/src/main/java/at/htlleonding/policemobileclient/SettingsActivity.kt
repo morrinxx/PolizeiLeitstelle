@@ -71,7 +71,9 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             .edit()
         preferences.putInt(MainActivity.DISTRICT_KEY, district)
         preferences.putString(MainActivity.NAME_KEY, name)
-        preferences.commit()
+        preferences.apply()
+        MainActivity.district = district
+        MainActivity.name = name
         Log.d(LOG_TAG, "saved preferences: $district   $name")
         finish()
     }

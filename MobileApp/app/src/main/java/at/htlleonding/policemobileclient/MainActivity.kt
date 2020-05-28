@@ -2,41 +2,42 @@ package at.htlleonding.policemobileclient
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import androidx.biometric.BiometricPrompt
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.fragment_authenication.*
+import at.htlleonding.policemobileclient.MQTT.disconnectMqttClient
 import org.eclipse.paho.android.service.MqttAndroidClient
-import org.eclipse.paho.client.mqttv3.*
-import org.eclipse.paho.client.mqttv3.MqttAsyncClient.generateClientId
-import org.eclipse.paho.client.mqttv3.MqttClient.generateClientId
-import java.util.concurrent.Executors
+import org.eclipse.paho.client.mqttv3.MqttException
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
+    private lateinit var locationManager : LocationManager
     companion object{
-        private val LOG_TAG = this::javaClass.toString()
+        private val LOG_TAG = this::class.java.toString()
         const val PREFERENCE_FILENAME = "PoliceMobileClientPreferences"
         const val DISTRICT_KEY = "DISTRICT_KEY"
         const val NAME_KEY = "NAME_KEY"
+        const val UUID_KEY = "UUID_KEY"
         var district = -1
         var name = ""
         lateinit var mqttAndroidClient: MqttAndroidClient
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        connectMqttClient(applicationContext)
         loadPreferences()
+
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+//        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, )
+//        Log.d("Location", location.longitude.toString())
 
         setContentView(R.layout.activity_main)
     }
@@ -60,50 +61,16 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
 
-    private fun connectMqttClient(applicationContext: Context){
-        mqttAndroidClient = MqttAndroidClient ( applicationContext,"tcp://broker.hivemq.com:1883","testLMAOasdfs"/*"PoliceApp" + Date().toString()*/)
-        val mqttOptions = MqttConnectOptions()
-        mqttOptions.isAutomaticReconnect = true
-        mqttOptions.isCleanSession = false
-        try {
-            mqttAndroidClient.connect(mqttOptions, null, object: IMqttActionListener{
-                override fun onSuccess(asyncActionToken: IMqttToken?) {
-                    Log.d("Connection", "Success")
-                }
-
-                override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-                    Log.d("Connection", "Failure, \n" + exception?.message + " \n\n\n" + exception?.toString())
-                }
-            })
-        }catch (ex: MqttException){
-            ex.printStackTrace()
-        }
-        /*try {
-            val token = mqttAndroidClient.connect()
-            token.actionCallback = object : IMqttActionListener {
-                override fun onSuccess(asyncActionToken: IMqttToken)                        {
-                    Log.i("Connection", "success ")
-                    //connectionStatus = true
-                    // Give your callback on connection established here
-                }
-                override fun onFailure(asyncActionToken: IMqttToken, exception: Throwable) {
-                    //connectionStatus = false
-                    Log.i("Connection", "failure")
-                    // Give your callback on connection failure here
-                    exception.printStackTrace()
-                }
-            }
-        } catch (e: MqttException) {
-            // Give your callback on connection failure here
-            e.printStackTrace()
-        }*/
-
-    }
-    private fun loadPreferences() {
+    fun loadPreferences() {
         val preferences = this.applicationContext
             .getSharedPreferences(PREFERENCE_FILENAME, Context.MODE_PRIVATE)
         district = preferences.getInt(DISTRICT_KEY, -1)
         name = preferences.getString(NAME_KEY, "Auto1")!!
         Log.d(LOG_TAG, "loaded preferences: $district    $name")
+    }
+
+    override fun onDestroy() {
+        if(mqttAndroidClient.isConnected) disconnectMqttClient()
+        super.onDestroy()
     }
 }
