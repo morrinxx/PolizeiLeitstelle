@@ -44,4 +44,6 @@
     <string name="save">Speichern</string>
     <string name="name">Fahrzeugname</string>
     <string name="settings_hint_name">z.B. Wels1</string>
+    <string name="tv_mission_title">Einsatz</string>
+    <string name="tv_mission_description">Description</string>
 </resources>

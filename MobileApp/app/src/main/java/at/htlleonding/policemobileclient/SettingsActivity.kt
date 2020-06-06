@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     companion object{
-        private val LOG_TAG = this::javaClass.toString()
+        private val LOG_TAG = this::class.java.toString()
     }
     private var district = -1
 

@@ -84,9 +84,77 @@ fun publishStatus(context: Context, statusId: Int){
     }
 }
 
+fun publishLocation(context: Context){
+    val data = """
+        {"x-coordinate": "${MainActivity.location.longitude}", "y-coordinate": "${MainActivity.location.latitude}"}
+    """.trimIndent()
+    try {
+        val encodedPayload = data.toByteArray(charset("UTF-8"))
+        val message = MqttMessage(encodedPayload)
+        message.qos = 0
+        message.isRetained = false
+        val topic = getTopicGps(context)
+        MainActivity.mqttAndroidClient.publish(topic, message)
+        Log.d("Publish - Sent", "\nTopic: $topic\n $message")
+    }
+    catch (ex:MqttException){
+        Log.e("Publish MQTT Exception", ex.toString())
+    }
+    catch (ex:Exception){
+        Log.e("Publish Exception", ex.toString())
+    }
+}
+
+fun subscribe(context: Context){
+    val qos = 0
+    val topic = getTopicForMission(context)
+    try {
+        MainActivity.mqttAndroidClient.subscribe(topic, qos, null, object : IMqttActionListener {
+
+            override fun onSuccess(asyncActionToken: IMqttToken) {
+                Log.d("Subscribe", "Successfully subscribed to: $topic")
+            }
+            override fun onFailure(
+                asyncActionToken: IMqttToken,
+                exception: Throwable
+            ) {
+                Log.e("Subscribe", "Failed to subscribe to topic: $topic")
+            }
+        })
+    } catch (e: MqttException) {
+        Log.e("Subscribe", "Exception while trying to subscribe")
+    }
+}
+
+fun unSubscribe(context: Context, topic: String) {
+    try {
+        val unsubToken = MainActivity.mqttAndroidClient.unsubscribe(topic)
+        unsubToken.actionCallback = object : IMqttActionListener {
+            override fun onSuccess(asyncActionToken: IMqttToken) {
+                Log.d("Subscribe", "Successfully unsubscribed to: $topic")
+            }
+            override fun onFailure(asyncActionToken: IMqttToken, exception: Throwable) {
+                Log.d("Subscribe", "Failde to unsubscribe from: $topic")
+            }
+        }
+    } catch (e: MqttException) {
+        Log.e("Subscribe", "Exception while trying to unsubscribe")
+    }
+}
+
+fun getTopicForMission(context: Context): String {
+    val res = context.resources.getStringArray(R.array.districtNames)
+    val district = res[MainActivity.district]            //Get the District name with the district ID from MainActivity
+    return "Leitstelle/$district/${MainActivity.name}/Einsatz"
+}
+
 fun getTopicStatus(context: Context): String {
     val res = context.resources.getStringArray(R.array.districtNames)
     val district = res[MainActivity.district]            //Get the District name with the district ID from MainActivity
     return "Leitstelle/$district/${MainActivity.name}/Status"
-
+}
+fun getTopicGps(context: Context) : String{
+    val res = context.resources.getStringArray(R.array.districtNames)
+    val district = res[MainActivity.district]            //Get the District name with the district ID from MainActivity
+    return "Leitstelle/$district/${MainActivity.name}/GPS"
 }

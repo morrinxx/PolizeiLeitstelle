@@ -9,7 +9,11 @@
         android:id="@+id/mainFragment"
         android:name="at.htlleonding.policemobileclient.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_missionFragment"
+            app:destination="@id/missionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/authenicationFragment"
         android:name="at.htlleonding.policemobileclient.AuthenticationFragment"
@@ -17,6 +21,15 @@
         tools:layout="@layout/fragment_authenication" >
         <action
             android:id="@+id/action_authenicationFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/missionFragment"
+        android:name="at.htlleonding.policemobileclient.MissionFragment"
+        android:label="fragment_mission"
+        tools:layout="@layout/fragment_mission" >
+        <action
+            android:id="@+id/action_missionFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
 </navigation>
