@@ -30,6 +30,8 @@
         tools:layout="@layout/fragment_mission" >
         <action
             android:id="@+id/action_missionFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/authenicationFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

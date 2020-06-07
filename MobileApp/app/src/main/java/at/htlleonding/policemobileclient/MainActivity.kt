@@ -31,8 +31,10 @@ class MainActivity : AppCompatActivity() {
         const val DISTRICT_KEY = "DISTRICT_KEY"
         const val NAME_KEY = "NAME_KEY"
         const val UUID_KEY = "UUID_KEY"
+        const val MISSION_SUB_KEY = "MISSION_SUB_KEY"
         var district = -1
         var name = ""
+        var missionDescription = ""
         lateinit var mqttAndroidClient: MqttAndroidClient
         lateinit var location: Location
     }

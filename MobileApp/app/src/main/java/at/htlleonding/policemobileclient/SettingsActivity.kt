@@ -8,6 +8,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import at.htlleonding.policemobileclient.MQTT.getTopicForMission
+import at.htlleonding.policemobileclient.MQTT.subscribe
+import at.htlleonding.policemobileclient.MQTT.unSubscribe
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -54,7 +57,7 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
         district = pos
-        Log.d(LOG_TAG, "selected district: " + district)
+        Log.d(LOG_TAG, "selected district: $district")
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -62,19 +65,27 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     }
 
     private fun onSave(){
-        var name = if(et_settings_name.text.toString() != ""){
+        val name = if(et_settings_name.text.toString() != ""){
             et_settings_name.text.toString()
         }
         else "Auto1"
+        val loadPreferences = this.applicationContext
+            .getSharedPreferences(MainActivity.PREFERENCE_FILENAME, Context.MODE_PRIVATE)
+        val oldSubscription = loadPreferences.getString(MainActivity.MISSION_SUB_KEY, null)
+        if(oldSubscription != null){
+            unSubscribe(oldSubscription)
+        }
+        MainActivity.district = district
+        MainActivity.name = name
         val preferences = this.applicationContext
             .getSharedPreferences(MainActivity.PREFERENCE_FILENAME, Context.MODE_PRIVATE)
             .edit()
         preferences.putInt(MainActivity.DISTRICT_KEY, district)
         preferences.putString(MainActivity.NAME_KEY, name)
+        preferences.putString(MainActivity.MISSION_SUB_KEY, getTopicForMission(this.applicationContext))
         preferences.apply()
-        MainActivity.district = district
-        MainActivity.name = name
         Log.d(LOG_TAG, "saved preferences: $district   $name")
+        subscribe(this.applicationContext)
         finish()
     }
 }

@@ -1,31 +1,23 @@
 package at.htlleonding.policemobileclient
 
-import android.location.Location
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import at.htlleonding.policemobileclient.MQTT.connectMqttClient
-import at.htlleonding.policemobileclient.MQTT.disconnectMqttClient
-import at.htlleonding.policemobileclient.MQTT.publishLocation
+import androidx.navigation.fragment.findNavController
 import at.htlleonding.policemobileclient.MQTT.publishStatus
 import at.htlleonding.policemobileclient.databinding.FragmentMainBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import kotlinx.android.synthetic.main.fragment_main.*
+import com.google.gson.Gson
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
+import org.eclipse.paho.client.mqttv3.MqttCallback
+import org.eclipse.paho.client.mqttv3.MqttMessage
+
+data class MessageDto(val id: Int, val description: String)
 
 class MainFragment : Fragment() {
-    companion object{
-        private val LOG_TAG = this::class.java.simpleName
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +26,7 @@ class MainFragment : Fragment() {
         val binding : FragmentMainBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_main, container, false
         )
-
+        receiveMessages()
         binding.btMainStatus1.setOnClickListener { publishStatus(requireContext(), 1) }
         binding.btMainStatus2.setOnClickListener { publishStatus(requireContext(), 2) }
         binding.btMainStatus3.setOnClickListener { publishStatus(requireContext(), 3) }
@@ -45,5 +37,28 @@ class MainFragment : Fragment() {
         binding.btMainStatus8.setOnClickListener { publishStatus(requireContext(), 8) }
 
         return binding.root
+    }
+
+    private fun receiveMessages() {
+        MainActivity.mqttAndroidClient.setCallback(object : MqttCallback {
+            override fun connectionLost(cause: Throwable) {
+                Log.e("Connection", "Lost MQTT Connection")
+            }
+            override fun messageArrived(topic: String, message: MqttMessage) {
+                try {
+                    val data = String(message.payload, charset("UTF-8"))
+                    Log.d("Subscribe", "Message arrived: topic: $topic    payload: $data")
+                    val jsonObject = Gson().fromJson(data, MessageDto::class.java)
+                    MainActivity.missionDescription = jsonObject.description
+                    findNavController().navigate(R.id.action_mainFragment_to_missionFragment)
+
+                } catch (e: Exception) {
+                    Log.e("Connection", "Exception on MQTT receiver: $e")
+                }
+            }
+            override fun deliveryComplete(token: IMqttDeliveryToken) {
+                // Acknowledgement on delivery complete
+            }
+        })
     }
 }

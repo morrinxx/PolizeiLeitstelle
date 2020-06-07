@@ -126,7 +126,7 @@ fun subscribe(context: Context){
     }
 }
 
-fun unSubscribe(context: Context, topic: String) {
+fun unSubscribe(topic: String) {
     try {
         val unsubToken = MainActivity.mqttAndroidClient.unsubscribe(topic)
         unsubToken.actionCallback = object : IMqttActionListener {
