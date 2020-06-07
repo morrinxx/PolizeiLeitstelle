@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         val sendLocationTimer = Timer()
         val sendLocationTask = object: TimerTask() {
             override fun run(){
+                getLastLocation()
                 publishLocation(this@MainActivity)
             }
         }
