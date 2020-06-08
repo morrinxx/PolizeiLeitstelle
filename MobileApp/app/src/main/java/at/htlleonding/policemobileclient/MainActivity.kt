@@ -67,12 +67,13 @@ class MainActivity : AppCompatActivity() {
 
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
                     val currentLocation: Location? = task.result
-                    if (currentLocation == null) {
-                        requestNewLocationData()
-                    } else {
-                        Log.d("Location", "${currentLocation.latitude} ${currentLocation.longitude}")
-                        location = currentLocation
-                    }
+                    requestNewLocationData()
+//                    if (currentLocation == null) {
+//                        requestNewLocationData()
+//                    } else {
+//                        Log.d("Location", "${currentLocation.latitude} ${currentLocation.longitude}")
+//                        location = currentLocation
+//                    }
                 }
             } else {
                 Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show()

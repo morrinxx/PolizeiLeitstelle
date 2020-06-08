@@ -86,7 +86,7 @@ fun publishStatus(context: Context, statusId: Int){
 
 fun publishLocation(context: Context){
     val data = """
-        {"x-coordinate": "${MainActivity.location.longitude}", "y-coordinate": "${MainActivity.location.latitude}"}
+        {"x-coordinate": "${MainActivity.location.latitude}", "y-coordinate": "${MainActivity.location.longitude}"}
     """.trimIndent()
     try {
         val encodedPayload = data.toByteArray(charset("UTF-8"))
