@@ -7,6 +7,27 @@
     <string name="authenticate">Authentifizieren</string>
     <string name="cancel">Abbrechen</string>
 
+    <string-array name="districtNames">
+        <item>BR</item>
+        <item>EF</item>
+        <item>FR</item>
+        <item>GM</item>
+        <item>GR</item>
+        <item>KI</item>
+        <item>L</item>
+        <item>LL</item>
+        <item>PE</item>
+        <item>RI</item>
+        <item>RO</item>
+        <item>SD</item>
+        <item>SR</item>
+        <item>SE</item>
+        <item>UU</item>
+        <item>VB</item>
+        <item>WE</item>
+        <item>WL</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Login</string>
@@ -18,4 +39,12 @@
     <string name="status_6">Bereithaltezeit</string>
     <string name="status_7">abmelden</string>
     <string name="status_8">Sprechwunsch anderes BL</string>
+    <string name="policeLogo">PolizeiLogo</string>
+    <string name="district">Bezirk</string>
+    <string name="save">Speichern</string>
+    <string name="name">Fahrzeugname</string>
+    <string name="settings_hint_name">z.B. Wels1</string>
+    <string name="tv_mission_title">Einsatz</string>
+    <string name="tv_mission_description">Description</string>
+    <string name="mission_acceptedMission">Einsatz angenommen</string>
 </resources>
