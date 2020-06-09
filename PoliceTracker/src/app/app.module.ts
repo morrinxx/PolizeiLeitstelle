@@ -14,11 +14,15 @@ import { Status } from "./status";
 import { HttpClientModule } from "@angular/common/http";
 import { MqttModule, IMqttServiceOptions } from "ngx-mqtt";
 import { ReportsOfOperationComponent } from "./reports-of-operation/reports-of-operation.component";
+import { MapViewerComponent } from "./map-viewer/map-viewer.component";
+
 export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: "broker.hivemq.com",
   port: 8000,
   path: "/mqtt",
 };
+
+const useBing = false;
 
 @NgModule({
   declarations: [
@@ -27,6 +31,7 @@ export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
     LogTabComponent,
     NewOperationTabComponent,
     ReportsOfOperationComponent,
+    MapViewerComponent,
   ],
   imports: [
     BrowserModule,

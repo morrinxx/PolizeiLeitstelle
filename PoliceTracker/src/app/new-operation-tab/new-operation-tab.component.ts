@@ -45,7 +45,6 @@ export class NewOperationTabComponent implements OnInit {
     this.cars = this.dataService.cars;
   }
 
-
   id = "";
 
   async delay(ms: number) {
@@ -68,7 +67,7 @@ export class NewOperationTabComponent implements OnInit {
     });
   }
 
-  refresh() : void{
+  refresh(): void {
     window.location.reload();
   }
 
