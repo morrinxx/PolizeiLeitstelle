@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 publishLocation(this@MainActivity)
             }
         }
-        sendLocationTimer.schedule(sendLocationTask, 10000, 10000)
+        sendLocationTimer.schedule(sendLocationTask, 10000, 3000)
     }
 
     @SuppressLint("MissingPermission")
