@@ -1,0 +1,42 @@
+<mat-form-field style="margin-left: 2%;">
+  <mat-label>Auto</mat-label>
+  <mat-select [(value)]="carInputTime">
+    <div *ngFor="let car of cars">
+      <mat-option value="{{ car.name }}">{{ car.name }}</mat-option>
+    </div>
+  </mat-select>
+</mat-form-field>
+<button
+  mat-raised-button
+  color="primary"
+  style="margin-left: 4%;"
+  (click)="getPositionsCarTime(carInputTime)"
+>
+  Time Route
+</button>
+<button
+  mat-raised-button
+  color="primary"
+  style="margin-left: 27%;"
+  (click)="checkToFalse()"
+  (click)="addCarMarkers()"
+>
+  Markers
+</button>
+<mat-form-field style="margin-left: 27%;">
+  <mat-label>Auto</mat-label>
+  <mat-select [(value)]="carInputOperation">
+    <div *ngFor="let car of cars">
+      <mat-option value="{{ car.name }}">{{ car.name }}</mat-option>
+    </div>
+  </mat-select>
+</mat-form-field>
+<button
+  mat-raised-button
+  color="primary"
+  style="margin-left: 4%;"
+  (click)="getPositionsCarOperation(carInputOperation)"
+>
+  Operation Route
+</button>
+<div id="map" class="map"></div>

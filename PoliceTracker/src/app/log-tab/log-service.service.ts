@@ -21,6 +21,18 @@ export class LogServiceService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  getPositionsCarTime(carName): Observable<any> {
+    return this.httpClient
+      .get(this.baseUrl + "/positionTime/" + carName)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getPositionsCarOperation(carName): Observable<any> {
+    return this.httpClient
+      .get(this.baseUrl + "/positionOperation/" + carName)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   getReportsOfOperation(operation): Observable<any> {
     let params = new HttpParams().set("operationName", operation);
     return this.httpClient
