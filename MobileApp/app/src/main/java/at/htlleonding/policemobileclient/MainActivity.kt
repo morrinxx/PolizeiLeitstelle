@@ -19,6 +19,8 @@ import androidx.core.app.ActivityCompat
 import at.htlleonding.policemobileclient.MQTT.connectMqttClient
 import at.htlleonding.policemobileclient.MQTT.disconnectMqttClient
 import at.htlleonding.policemobileclient.MQTT.publishLocation
+import at.htlleonding.policemobileclient.messaging.sendLocation
+import at.htlleonding.policemobileclient.messaging.unsubscribe
 import com.google.android.gms.location.*
 import org.eclipse.paho.android.service.MqttAndroidClient
 import java.util.*
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         val sendLocationTask = object: TimerTask() {
             override fun run(){
                 getLastLocation()
-                publishLocation(this@MainActivity)
+                sendLocation()
             }
         }
         sendLocationTimer.schedule(sendLocationTask, 10000, 3000)
@@ -175,7 +177,8 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onDestroy() {
-        if(mqttAndroidClient.isConnected) disconnectMqttClient()
         super.onDestroy()
+        unsubscribe()
+        if(mqttAndroidClient.isConnected) disconnectMqttClient()
     }
 }
