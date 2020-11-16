@@ -30,5 +30,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_autentication_logo" />
+
+        <Button
+            android:id="@+id/bt_subscribe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subscribe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_authentication_login" />
+
+        <Button
+            android:id="@+id/bt_logToken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GetToken"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_subscribe" />
+
+        <Button
+            android:id="@+id/bt_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bt_logToken"
+            app:layout_constraintTop_toTopOf="@+id/bt_logToken" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

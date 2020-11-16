@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "500432658184",
+    "firebase_url": "https://polizieleitstelle.firebaseio.com",
+    "project_id": "polizieleitstelle",
+    "storage_bucket": "polizieleitstelle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500432658184:android:2addc56f18ed2a0a7f96bd",
+        "android_client_info": {
+          "package_name": "at.htlleonding.policemobileclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500432658184-ucmhpm648c0hol4pf52bcrkpug2ks71s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "at.htlleonding.policemobileclient",
+            "certificate_hash": "f9b357f33ab57df0a75df347ed49483162ab3d76"
+          }
+        },
+        {
+          "client_id": "500432658184-8v7590u841fob58o7ooo7gdu3glhimr0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0wh2X7HU79FGCrGYfUpiKp_HRGvAX-PA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500432658184-8v7590u841fob58o7ooo7gdu3glhimr0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
