@@ -1,5 +1,7 @@
 package at.htlleonding.policemobileclient
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +17,7 @@ import at.htlleonding.policemobileclient.messaging.RetrofitInstance
 import at.htlleonding.policemobileclient.model.NotificationData
 import at.htlleonding.policemobileclient.model.PushNotification
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
@@ -26,6 +29,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
+const val TOPIC = "/topics/myTopic2"
 
 class AuthenticationFragment : Fragment() {
     companion object{
@@ -40,6 +44,13 @@ class AuthenticationFragment : Fragment() {
         val binding: FragmentAuthenicationBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_authenication, container, false
         )
+
+        MyFirebaseMessagingService.sharedPref = activity?.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+            MyFirebaseMessagingService.token = it.token
+        }
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+
         val bP = BiometricPrompt(this, executor, object: BiometricPrompt.AuthenticationCallback(){
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
@@ -72,7 +83,7 @@ class AuthenticationFragment : Fragment() {
 
         binding.btAuthenticationLogin.setOnClickListener { bP.authenticate(promptInfo) }
         binding.btSubscribe.setOnClickListener{
-            Firebase.messaging.subscribeToTopic("topic_weather")
+            Firebase.messaging.subscribeToTopic(TOPIC)
                 .addOnCompleteListener{ task ->
                     var msg = "successfully Subscribed!"
                     if (!task.isSuccessful) {
@@ -103,7 +114,8 @@ class AuthenticationFragment : Fragment() {
         }
         binding.btSend.setOnClickListener{
             PushNotification(
-                NotificationData("TestTitle", "TestMessage"), "topic_weather"
+                NotificationData("TestTitle", "TestMessage"),
+                TOPIC
             ).also{
                 sendNotification(it)
             }
