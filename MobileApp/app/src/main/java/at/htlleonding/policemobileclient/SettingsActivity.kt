@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.navigation.findNavController
 import at.htlleonding.policemobileclient.MQTT.getTopicForMission
 import at.htlleonding.policemobileclient.MQTT.subscribe
 import at.htlleonding.policemobileclient.MQTT.unSubscribe
@@ -85,7 +86,7 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         preferences.putString(MainActivity.MISSION_SUB_KEY, getTopicForMission(this.applicationContext))
         preferences.apply()
         Log.d(LOG_TAG, "saved preferences: $district   $name")
-        subscribe(this.applicationContext)
+        //subscribe(this.applicationContext)
         finish()
     }
 }

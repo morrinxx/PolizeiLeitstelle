@@ -22,6 +22,7 @@ import at.htlleonding.policemobileclient.MQTT.publishLocation
 import at.htlleonding.policemobileclient.messaging.sendLocation
 import at.htlleonding.policemobileclient.messaging.unsubscribe
 import com.google.android.gms.location.*
+import com.google.firebase.auth.FirebaseAuth
 import org.eclipse.paho.android.service.MqttAndroidClient
 import java.beans.PropertyChangeSupport
 import java.util.*
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var mqttAndroidClient: MqttAndroidClient
         lateinit var location: Location
         var SEND_LOCATION = false
+        lateinit var mAuth: FirebaseAuth
     }
 
     private val PERMISSION_ID = 42
@@ -54,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         loadPreferences()
-        connectMqttClient(this)
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
         val sendLocationTimer = Timer()
