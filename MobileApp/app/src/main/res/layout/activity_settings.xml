@@ -61,19 +61,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_settings_district" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="259dp"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_settings_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_settings_name"
+        android:layout_marginTop="20dp"
+        android:hint="@string/settings_hint_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_settings_district">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_settings_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/settings_hint_name" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/spinner_settings_district" />
 </androidx.constraintlayout.widget.ConstraintLayout>

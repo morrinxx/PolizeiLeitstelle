@@ -55,7 +55,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-
+        if(message.data["message"] != null){
+            MainActivity.missionDescription = message.data["message"]!!
+            Log.d(TAG, "MissionDescription: " + MainActivity.missionDescription)
+        }
         val intent = Intent(this, MainActivity::class.java)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationID = Random.nextInt()

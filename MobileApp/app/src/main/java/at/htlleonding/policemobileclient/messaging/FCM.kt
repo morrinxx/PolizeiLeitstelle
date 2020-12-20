@@ -1,7 +1,9 @@
 package at.htlleonding.policemobileclient.messaging
 
+import android.content.Context
 import android.util.Log
 import at.htlleonding.policemobileclient.MainActivity
+import at.htlleonding.policemobileclient.R
 import at.htlleonding.policemobileclient.model.NotificationData
 import at.htlleonding.policemobileclient.model.PushNotification
 import com.google.firebase.ktx.Firebase
@@ -52,11 +54,11 @@ fun subscribe(){
 fun sendStatus(id: Int) = CoroutineScope(Dispatchers.IO).launch {
     val data = NotificationData(
         title = "Status",
-        message = id.toString()
+        message = "$id;${MainActivity.name};${MainActivity.missionDescription}"
     )
     val pushNotification = PushNotification(
         data = data,
-        to = STATUS_TOPIC
+        to = MainActivity.polizeiLeitstelle
     )
     try {
         val response = RetrofitInstance.api.postNotification(pushNotification)
@@ -73,16 +75,44 @@ fun sendStatus(id: Int) = CoroutineScope(Dispatchers.IO).launch {
     }
 }
 fun sendLocation() = CoroutineScope(Dispatchers.IO).launch {
-    val message = """
-        {"x-coordinate": "${MainActivity.location.latitude}", "y-coordinate": "${MainActivity.location.longitude}"}
-    """.trimIndent()
+    val message = "${MainActivity.location.latitude};${MainActivity.location.longitude};${MainActivity.name}"
     val data = NotificationData(
         title = "Location",
         message = message
     )
     val pushNotification = PushNotification(
         data = data,
-        to = LOCATION_TOPIC
+        to = MainActivity.polizeiLeitstelle
+    )
+
+    try {
+        val response = RetrofitInstance.api.postNotification(pushNotification)
+        if(response.isSuccessful){
+            Log.d(
+                TAG, "Response: ${
+                    response.code()}")
+        }
+        else{
+            Log.e(TAG, response.errorBody().toString())
+        }
+    } catch(e: Exception){
+        Log.e(TAG, e.toString())
+    }
+}
+
+fun sendInitial(context: Context) = CoroutineScope(Dispatchers.IO).launch {
+    val res = context.resources.getStringArray(R.array.districtNames)
+    val district = res[MainActivity.district]
+    val message = "${res[MainActivity.district]};${MainActivity.name};${MyFirebaseMessagingService.token}"
+    Log.d(TAG, message)
+    val data = NotificationData(
+        title = "Fahrzeug aktiv",
+        message = message
+    )
+    Log.d(TAG, data.toString())
+    val pushNotification = PushNotification(
+        data = data,
+        to = MainActivity.polizeiLeitstelle
     )
     try {
         val response = RetrofitInstance.api.postNotification(pushNotification)

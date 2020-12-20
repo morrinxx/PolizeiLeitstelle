@@ -47,4 +47,5 @@
     <string name="tv_mission_title">Einsatz</string>
     <string name="tv_mission_description">Description</string>
     <string name="mission_acceptedMission">Einsatz angenommen</string>
+    <string name="no_mission">Kein Einsatz</string>
 </resources>

@@ -23,7 +23,10 @@ import at.htlleonding.policemobileclient.messaging.sendLocation
 import at.htlleonding.policemobileclient.messaging.unsubscribe
 import com.google.android.gms.location.*
 import org.eclipse.paho.android.service.MqttAndroidClient
+import java.beans.PropertyChangeSupport
 import java.util.*
+import kotlin.properties.Delegates
+import kotlin.reflect.KProperty
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,9 +39,11 @@ class MainActivity : AppCompatActivity() {
         const val MISSION_SUB_KEY = "MISSION_SUB_KEY"
         var district = -1
         var name = ""
-        var missionDescription = ""
+        var missionDescription = "Kein Einsatz"
+        const val polizeiLeitstelle = "f2mHBdkwTQg0rDysY3sJ-T:APA91bGOjE1BBuyV981Fw_2ayltJX19mgHpQsyujpcn0XcruYkDaXq-7V13az_tnNiJ6FzbfckJyZzjCkmWe1xz6q2_QpKRVTU-pGNdNpg3Rx9I8j12THwl3Dd7eoYe93wyjmpetXKR8"
         lateinit var mqttAndroidClient: MqttAndroidClient
         lateinit var location: Location
+        var SEND_LOCATION = false
     }
 
     private val PERMISSION_ID = 42
@@ -55,8 +60,10 @@ class MainActivity : AppCompatActivity() {
         val sendLocationTimer = Timer()
         val sendLocationTask = object: TimerTask() {
             override fun run(){
-                getLastLocation()
-                sendLocation()
+                if(SEND_LOCATION){
+                    getLastLocation()
+                    sendLocation()
+                }
             }
         }
         sendLocationTimer.schedule(sendLocationTask, 10000, 3000)

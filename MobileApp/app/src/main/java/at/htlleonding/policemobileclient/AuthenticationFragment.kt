@@ -29,6 +29,7 @@ class AuthenticationFragment : Fragment() {
         val binding: FragmentAuthenicationBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_authenication, container, false
         )
+        MainActivity.SEND_LOCATION = false
 
         MyFirebaseMessagingService.sharedPref = activity?.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
